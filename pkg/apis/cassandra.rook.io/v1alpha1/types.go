@@ -41,19 +41,24 @@ const (
 // +genclient:noStatus
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
+// Cluster Cassandra Cluster object
 type Cluster struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata"`
-	Spec              ClusterSpec   `json:"spec"`
-	Status            ClusterStatus `json:"status"`
+	// Specifications of a Cassandra Cluster
+	Spec ClusterSpec `json:"spec"`
+	// Status of a Cassandra Cluster
+	Status ClusterStatus `json:"status"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
+// ClusterList Cassandra Cluster list object
 type ClusterList struct {
 	metav1.TypeMeta `json:",inline"`
 	metav1.ListMeta `json:"metadata"`
-	Items           []Cluster `json:"items"`
+	// List of Cassandra Clusters
+	Items []Cluster `json:"items"`
 }
 
 // ClusterSpec is the desired state for a Cassandra Cluster.
@@ -72,11 +77,14 @@ type ClusterSpec struct {
 	SidecarImage *ImageSpec `json:"sidecarImage,omitempty"`
 }
 
+// ClusterMode cluster mode type
 type ClusterMode string
 
 const (
+	// ClusterModeCassandra Cassandra cluster mode
 	ClusterModeCassandra ClusterMode = "cassandra"
-	ClusterModeScylla    ClusterMode = "scylla"
+	// ClusterModeScylla Scylla cluster mode
+	ClusterModeScylla ClusterMode = "scylla"
 )
 
 // DatacenterSpec is the desired state for a Cassandra Datacenter.
@@ -117,6 +125,7 @@ type ImageSpec struct {
 
 // ClusterStatus is the status of a Cassandra Cluster
 type ClusterStatus struct {
+	// Racks List of Cassandra Cluster Rack Statuses
 	Racks map[string]*RackStatus `json:"racks,omitempty"`
 }
 
@@ -132,16 +141,21 @@ type RackStatus struct {
 
 // RackCondition is an observation about the state of a rack.
 type RackCondition struct {
-	Type   RackConditionType `json:"type"`
-	Status ConditionStatus   `json:"status"`
+	// Condition of a Rack
+	Type RackConditionType `json:"type"`
+	// Status of a Rack
+	Status ConditionStatus `json:"status"`
 }
 
+// RackConditionType Rack Condition type
 type RackConditionType string
 
 const (
+	//RackConditionTypeMemberLeaving Rack Condition type for a member leaving
 	RackConditionTypeMemberLeaving RackConditionType = "MemberLeaving"
 )
 
+// ConditionStatus Condition status
 type ConditionStatus string
 
 // These are valid condition statuses. "ConditionTrue" means a resource is in the condition;
