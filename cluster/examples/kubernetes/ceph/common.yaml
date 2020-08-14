@@ -15,6 +15,9 @@ apiVersion: v1
 kind: Namespace
 metadata:
   name: rook-ceph
+  labels:
+    operator: rook
+    storage-backend: ceph
 # OLM: BEGIN CEPH CRD
 # The CRD declarations
 ---
@@ -22,6 +25,9 @@ apiVersion: apiextensions.k8s.io/v1beta1
 kind: CustomResourceDefinition
 metadata:
   name: cephclusters.ceph.rook.io
+  labels:
+    operator: rook
+    storage-backend: ceph
 spec:
   group: ceph.rook.io
   names:
@@ -239,6 +245,9 @@ apiVersion: apiextensions.k8s.io/v1beta1
 kind: CustomResourceDefinition
 metadata:
   name: cephclients.ceph.rook.io
+  labels:
+    operator: rook
+    storage-backend: ceph
 spec:
   group: ceph.rook.io
   names:
@@ -264,6 +273,9 @@ apiVersion: apiextensions.k8s.io/v1beta1
 kind: CustomResourceDefinition
 metadata:
   name: cephrbdmirrors.ceph.rook.io
+  labels:
+    operator: rook
+    storage-backend: ceph
 spec:
   group: ceph.rook.io
   names:
@@ -291,6 +303,9 @@ apiVersion: apiextensions.k8s.io/v1beta1
 kind: CustomResourceDefinition
 metadata:
   name: cephfilesystems.ceph.rook.io
+  labels:
+    operator: rook
+    storage-backend: ceph
 spec:
   group: ceph.rook.io
   names:
@@ -403,6 +418,9 @@ apiVersion: apiextensions.k8s.io/v1beta1
 kind: CustomResourceDefinition
 metadata:
   name: cephnfses.ceph.rook.io
+  labels:
+    operator: rook
+    storage-backend: ceph
 spec:
   group: ceph.rook.io
   names:
@@ -441,6 +459,9 @@ apiVersion: apiextensions.k8s.io/v1beta1
 kind: CustomResourceDefinition
 metadata:
   name: cephobjectstores.ceph.rook.io
+  labels:
+    operator: rook
+    storage-backend: ceph
 spec:
   group: ceph.rook.io
   names:
@@ -554,6 +575,9 @@ apiVersion: apiextensions.k8s.io/v1beta1
 kind: CustomResourceDefinition
 metadata:
   name: cephobjectstoreusers.ceph.rook.io
+  labels:
+    operator: rook
+    storage-backend: ceph
 spec:
   group: ceph.rook.io
   names:
@@ -575,6 +599,9 @@ apiVersion: apiextensions.k8s.io/v1beta1
 kind: CustomResourceDefinition
 metadata:
   name: cephobjectrealms.ceph.rook.io
+  labels:
+    operator: rook
+    storage-backend: ceph
 spec:
   group: ceph.rook.io
   names:
@@ -593,6 +620,9 @@ apiVersion: apiextensions.k8s.io/v1beta1
 kind: CustomResourceDefinition
 metadata:
   name: cephobjectzonegroups.ceph.rook.io
+  labels:
+    operator: rook
+    storage-backend: ceph
 spec:
   group: ceph.rook.io
   names:
@@ -611,6 +641,9 @@ apiVersion: apiextensions.k8s.io/v1beta1
 kind: CustomResourceDefinition
 metadata:
   name: cephobjectzones.ceph.rook.io
+  labels:
+    operator: rook
+    storage-backend: ceph
 spec:
   group: ceph.rook.io
   names:
@@ -629,6 +662,9 @@ apiVersion: apiextensions.k8s.io/v1beta1
 kind: CustomResourceDefinition
 metadata:
   name: cephblockpools.ceph.rook.io
+  labels:
+    operator: rook
+    storage-backend: ceph
 spec:
   group: ceph.rook.io
   names:
@@ -690,6 +726,9 @@ apiVersion: apiextensions.k8s.io/v1beta1
 kind: CustomResourceDefinition
 metadata:
   name: volumes.rook.io
+  labels:
+    operator: rook
+    storage-backend: ceph
 spec:
   group: rook.io
   names:
@@ -710,6 +749,9 @@ apiVersion: apiextensions.k8s.io/v1beta1
 kind: CustomResourceDefinition
 metadata:
   name: objectbuckets.objectbucket.io
+  labels:
+    operator: rook
+    storage-backend: ceph
 spec:
   group: objectbucket.io
   versions:
@@ -734,6 +776,9 @@ apiVersion: apiextensions.k8s.io/v1beta1
 kind: CustomResourceDefinition
 metadata:
   name: objectbucketclaims.objectbucket.io
+  labels:
+    operator: rook
+    storage-backend: ceph
 spec:
   versions:
     - name: v1alpha1
@@ -758,6 +803,9 @@ kind: ClusterRoleBinding
 apiVersion: rbac.authorization.k8s.io/v1beta1
 metadata:
   name: rook-ceph-object-bucket
+  labels:
+    operator: rook
+    storage-backend: ceph
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
@@ -773,12 +821,18 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: rook-ceph-admission-controller
+  labels:
+    operator: rook
+    storage-backend: ceph
   namespace: rook-ceph
 ---
 kind: ClusterRole
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   name: rook-ceph-admission-controller-role
+  labels:
+    operator: rook
+    storage-backend: ceph
 rules:
   - apiGroups: ["ceph.rook.io"]
     resources: ["*"]
@@ -788,6 +842,9 @@ kind: ClusterRoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   name: rook-ceph-admission-controller-rolebinding
+  labels:
+    operator: rook
+    storage-backend: ceph
 subjects:
   - kind: ServiceAccount
     name: rook-ceph-admission-controller
@@ -1109,6 +1166,9 @@ kind: ServiceAccount
 metadata:
   name: rook-ceph-osd
   namespace: rook-ceph
+  labels:
+    operator: rook
+    storage-backend: ceph
 # imagePullSecrets:
 # - name: my-registry-secret
 
@@ -1121,6 +1181,9 @@ kind: ServiceAccount
 metadata:
   name: rook-ceph-mgr
   namespace: rook-ceph
+  labels:
+    operator: rook
+    storage-backend: ceph
 # imagePullSecrets:
 # - name: my-registry-secret
 
@@ -1132,6 +1195,9 @@ kind: ServiceAccount
 metadata:
   name: rook-ceph-cmd-reporter
   namespace: rook-ceph
+  labels:
+    operator: rook
+    storage-backend: ceph
 # OLM: END CMD REPORTER SERVICE ACCOUNT
 # OLM: BEGIN CLUSTER ROLE
 ---
@@ -1140,6 +1206,9 @@ apiVersion: rbac.authorization.k8s.io/v1beta1
 metadata:
   name: rook-ceph-osd
   namespace: rook-ceph
+  labels:
+    operator: rook
+    storage-backend: ceph
 rules:
 - apiGroups: [""]
   resources: ["configmaps"]
@@ -1152,6 +1221,9 @@ kind: ClusterRole
 apiVersion: rbac.authorization.k8s.io/v1beta1
 metadata:
   name: rook-ceph-osd
+  labels:
+    operator: rook
+    storage-backend: ceph
 rules:
 - apiGroups:
   - ""
@@ -1166,6 +1238,9 @@ kind: ClusterRole
 apiVersion: rbac.authorization.k8s.io/v1beta1
 metadata:
   name: rook-ceph-mgr-system
+  labels:
+    operator: rook
+    storage-backend: ceph
 rules:
 - apiGroups:
   - ""
@@ -1182,6 +1257,9 @@ apiVersion: rbac.authorization.k8s.io/v1beta1
 metadata:
   name: rook-ceph-mgr
   namespace: rook-ceph
+  labels:
+    operator: rook
+    storage-backend: ceph
 rules:
 - apiGroups:
   - ""
@@ -1219,6 +1297,9 @@ apiVersion: rbac.authorization.k8s.io/v1beta1
 metadata:
   name: rook-ceph-cmd-reporter
   namespace: rook-ceph
+  labels:
+    operator: rook
+    storage-backend: ceph
 rules:
 - apiGroups:
   - ""
@@ -1241,6 +1322,9 @@ apiVersion: rbac.authorization.k8s.io/v1beta1
 metadata:
   name: rook-ceph-cluster-mgmt
   namespace: rook-ceph
+  labels:
+    operator: rook
+    storage-backend: ceph
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
@@ -1256,6 +1340,9 @@ apiVersion: rbac.authorization.k8s.io/v1beta1
 metadata:
   name: rook-ceph-osd
   namespace: rook-ceph
+  labels:
+    operator: rook
+    storage-backend: ceph
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: Role
@@ -1271,6 +1358,9 @@ apiVersion: rbac.authorization.k8s.io/v1beta1
 metadata:
   name: rook-ceph-mgr
   namespace: rook-ceph
+  labels:
+    operator: rook
+    storage-backend: ceph
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: Role
@@ -1286,6 +1376,9 @@ apiVersion: rbac.authorization.k8s.io/v1beta1
 metadata:
   name: rook-ceph-mgr-system
   namespace: rook-ceph
+  labels:
+    operator: rook
+    storage-backend: ceph
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
@@ -1300,6 +1393,9 @@ kind: ClusterRoleBinding
 apiVersion: rbac.authorization.k8s.io/v1beta1
 metadata:
   name: rook-ceph-mgr-cluster
+  labels:
+    operator: rook
+    storage-backend: ceph
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
@@ -1315,6 +1411,9 @@ kind: ClusterRoleBinding
 apiVersion: rbac.authorization.k8s.io/v1beta1
 metadata:
   name: rook-ceph-osd
+  labels:
+    operator: rook
+    storage-backend: ceph
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
@@ -1332,6 +1431,9 @@ apiVersion: rbac.authorization.k8s.io/v1beta1
 metadata:
   name: rook-ceph-cmd-reporter
   namespace: rook-ceph
+  labels:
+    operator: rook
+    storage-backend: ceph
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: Role
@@ -1357,6 +1459,9 @@ metadata:
   annotations:
     seccomp.security.alpha.kubernetes.io/allowedProfileNames: 'runtime/default'
     seccomp.security.alpha.kubernetes.io/defaultProfileName:  'runtime/default'
+  labels:
+    operator: rook
+    storage-backend: ceph
 spec:
   privileged: true
   allowedCapabilities:
@@ -1425,6 +1530,9 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
   name: 'psp:rook'
+  labels:
+    operator: rook
+    storage-backend: ceph
 rules:
   - apiGroups:
       - policy
@@ -1439,6 +1547,9 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
   name: rook-ceph-system-psp
+  labels:
+    operator: rook
+    storage-backend: ceph
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
@@ -1453,6 +1564,9 @@ kind: RoleBinding
 metadata:
   name: rook-ceph-default-psp
   namespace: rook-ceph
+  labels:
+    operator: rook
+    storage-backend: ceph
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
@@ -1467,6 +1581,9 @@ kind: RoleBinding
 metadata:
   name: rook-ceph-osd-psp
   namespace: rook-ceph
+  labels:
+    operator: rook
+    storage-backend: ceph
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
@@ -1481,6 +1598,9 @@ kind: RoleBinding
 metadata:
   name: rook-ceph-mgr-psp
   namespace: rook-ceph
+  labels:
+    operator: rook
+    storage-backend: ceph
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
@@ -1495,6 +1615,9 @@ kind: RoleBinding
 metadata:
   name: rook-ceph-cmd-reporter-psp
   namespace: rook-ceph
+  labels:
+    operator: rook
+    storage-backend: ceph
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
@@ -1511,20 +1634,29 @@ kind: ServiceAccount
 metadata:
   name: rook-csi-cephfs-plugin-sa
   namespace: rook-ceph
+  labels:
+    operator: rook
+    storage-backend: ceph
 ---
 apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: rook-csi-cephfs-provisioner-sa
   namespace: rook-ceph
+  labels:
+    operator: rook
+    storage-backend: ceph
 # OLM: END CSI CEPHFS SERVICE ACCOUNT
 # OLM: BEGIN CSI CEPHFS ROLE
 ---
 kind: Role
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  namespace: rook-ceph
   name: cephfs-external-provisioner-cfg
+  namespace: rook-ceph
+  labels:
+    operator: rook
+    storage-backend: ceph
 rules:
   - apiGroups: [""]
     resources: ["endpoints"]
@@ -1543,6 +1675,9 @@ apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   name: cephfs-csi-provisioner-role-cfg
   namespace: rook-ceph
+  labels:
+    operator: rook
+    storage-backend: ceph
 subjects:
   - kind: ServiceAccount
     name: rook-csi-cephfs-provisioner-sa
@@ -1558,6 +1693,9 @@ kind: ClusterRole
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   name: cephfs-csi-nodeplugin
+  labels:
+    operator: rook
+    storage-backend: ceph
 rules:
   - apiGroups: [""]
     resources: ["nodes"]
@@ -1579,6 +1717,9 @@ kind: ClusterRole
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   name: cephfs-external-provisioner-runner
+  labels:
+    operator: rook
+    storage-backend: ceph
 rules:
   - apiGroups: [""]
     resources: ["secrets"]
@@ -1629,6 +1770,9 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
   name: rook-csi-cephfs-plugin-sa-psp
+  labels:
+    operator: rook
+    storage-backend: ceph
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
@@ -1642,6 +1786,9 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
   name: rook-csi-cephfs-provisioner-sa-psp
+  labels:
+    operator: rook
+    storage-backend: ceph
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
@@ -1655,6 +1802,9 @@ kind: ClusterRoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   name: cephfs-csi-nodeplugin
+  labels:
+    operator: rook
+    storage-backend: ceph
 subjects:
   - kind: ServiceAccount
     name: rook-csi-cephfs-plugin-sa
@@ -1669,6 +1819,9 @@ kind: ClusterRoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   name: cephfs-csi-provisioner-role
+  labels:
+    operator: rook
+    storage-backend: ceph
 subjects:
   - kind: ServiceAccount
     name: rook-csi-cephfs-provisioner-sa
@@ -1685,20 +1838,29 @@ kind: ServiceAccount
 metadata:
   name: rook-csi-rbd-plugin-sa
   namespace: rook-ceph
+  labels:
+    operator: rook
+    storage-backend: ceph
 ---
 apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: rook-csi-rbd-provisioner-sa
   namespace: rook-ceph
+  labels:
+    operator: rook
+    storage-backend: ceph
 # OLM: END CSI RBD SERVICE ACCOUNT
 # OLM: BEGIN CSI RBD ROLE
 ---
 kind: Role
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  namespace: rook-ceph
   name: rbd-external-provisioner-cfg
+  namespace: rook-ceph
+  labels:
+    operator: rook
+    storage-backend: ceph
 rules:
   - apiGroups: [""]
     resources: ["endpoints"]
@@ -1717,6 +1879,9 @@ apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   name: rbd-csi-provisioner-role-cfg
   namespace: rook-ceph
+  labels:
+    operator: rook
+    storage-backend: ceph
 subjects:
   - kind: ServiceAccount
     name: rook-csi-rbd-provisioner-sa
@@ -1732,6 +1897,9 @@ kind: ClusterRole
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   name: rbd-csi-nodeplugin
+  labels:
+    operator: rook
+    storage-backend: ceph
 rules:
   - apiGroups: [""]
     resources: ["secrets"]
@@ -1756,6 +1924,9 @@ kind: ClusterRole
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   name: rbd-external-provisioner-runner
+  labels:
+    operator: rook
+    storage-backend: ceph
 rules:
   - apiGroups: [""]
     resources: ["secrets"]
@@ -1806,6 +1977,9 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
   name: rook-csi-rbd-plugin-sa-psp
+  labels:
+    operator: rook
+    storage-backend: ceph
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
@@ -1819,6 +1993,9 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
   name: rook-csi-rbd-provisioner-sa-psp
+  labels:
+    operator: rook
+    storage-backend: ceph
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
@@ -1832,6 +2009,9 @@ kind: ClusterRoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   name: rbd-csi-nodeplugin
+  labels:
+    operator: rook
+    storage-backend: ceph
 subjects:
   - kind: ServiceAccount
     name: rook-csi-rbd-plugin-sa
@@ -1845,6 +2025,9 @@ kind: ClusterRoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   name: rbd-csi-provisioner-role
+  labels:
+    operator: rook
+    storage-backend: ceph
 subjects:
   - kind: ServiceAccount
     name: rook-csi-rbd-provisioner-sa
