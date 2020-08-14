@@ -33,6 +33,9 @@ currentNamespaceOnly: false
 ## Annotations to be added to pod
 annotations: {}
 
+## Label to be added to pod
+labels: {}
+
 ## LogLevel can be set to: TRACE, DEBUG, INFO, NOTICE, WARNING, ERROR or CRITICAL
 logLevel: INFO
 
